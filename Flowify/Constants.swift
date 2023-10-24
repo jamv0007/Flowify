@@ -9,4 +9,6 @@ import Foundation
 
 struct Constants{
     static let segueShowData = "showFlowerData"
+    static let cellIdentifier = "cellFlower"
+    static let cellNibName = "FlowerViewCell"
 }

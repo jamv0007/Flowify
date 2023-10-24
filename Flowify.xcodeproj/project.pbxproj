@@ -20,6 +20,10 @@
 		189414CC2AE52CB600DF8570 /* WikiDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189414CB2AE52CB600DF8570 /* WikiDataDelegate.swift */; };
 		189414CE2AE546CC00DF8570 /* ShowDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189414CD2AE546CC00DF8570 /* ShowDataViewController.swift */; };
 		189414D02AE548A800DF8570 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189414CF2AE548A800DF8570 /* Constants.swift */; };
+		18E48D1B2AE7CF9E0064D3F6 /* MyFlowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E48D1A2AE7CF9E0064D3F6 /* MyFlowersViewController.swift */; };
+		18E48D1E2AE7D03A0064D3F6 /* FlowerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E48D1C2AE7D03A0064D3F6 /* FlowerViewCell.swift */; };
+		18E48D212AE7D7280064D3F6 /* FlowerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E48D202AE7D7280064D3F6 /* FlowerData.swift */; };
+		18E48D2B2AE7EF880064D3F6 /* FlowerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E48D292AE7EF880064D3F6 /* FlowerViewCell.xib */; };
 		CF995AA5BE5F24CF0307ABB2 /* Pods_Flowify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D855FD028AE9538A30C006D6 /* Pods_Flowify.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +43,10 @@
 		189414CB2AE52CB600DF8570 /* WikiDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiDataDelegate.swift; sourceTree = "<group>"; };
 		189414CD2AE546CC00DF8570 /* ShowDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDataViewController.swift; sourceTree = "<group>"; };
 		189414CF2AE548A800DF8570 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		18E48D1A2AE7CF9E0064D3F6 /* MyFlowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlowersViewController.swift; sourceTree = "<group>"; };
+		18E48D1C2AE7D03A0064D3F6 /* FlowerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerViewCell.swift; sourceTree = "<group>"; };
+		18E48D202AE7D7280064D3F6 /* FlowerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerData.swift; sourceTree = "<group>"; };
+		18E48D292AE7EF880064D3F6 /* FlowerViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlowerViewCell.xib; sourceTree = "<group>"; };
 		A50635CDF74951343D9FCA31 /* Pods-Flowify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flowify.debug.xcconfig"; path = "Target Support Files/Pods-Flowify/Pods-Flowify.debug.xcconfig"; sourceTree = "<group>"; };
 		D710BF2FB3EE45881DDE0EAD /* Pods-Flowify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flowify.release.xcconfig"; path = "Target Support Files/Pods-Flowify/Pods-Flowify.release.xcconfig"; sourceTree = "<group>"; };
 		D855FD028AE9538A30C006D6 /* Pods_Flowify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flowify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +71,7 @@
 				189414C72AE51CAA00DF8570 /* WikiData.swift */,
 				189414C92AE528CD00DF8570 /* WikiDataAccess.swift */,
 				189414CB2AE52CB600DF8570 /* WikiDataDelegate.swift */,
+				18E48D202AE7D7280064D3F6 /* FlowerData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -106,6 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				184F83E02AE3E19B00F5C59B /* Main.storyboard */,
+				18E48D1C2AE7D03A0064D3F6 /* FlowerViewCell.swift */,
+				18E48D292AE7EF880064D3F6 /* FlowerViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -115,6 +126,7 @@
 			children = (
 				184F83DE2AE3E19B00F5C59B /* ViewController.swift */,
 				189414CD2AE546CC00DF8570 /* ShowDataViewController.swift */,
+				18E48D1A2AE7CF9E0064D3F6 /* MyFlowersViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -198,6 +210,7 @@
 			files = (
 				184F83E72AE3E19D00F5C59B /* LaunchScreen.storyboard in Resources */,
 				184F83E42AE3E19D00F5C59B /* Assets.xcassets in Resources */,
+				18E48D2B2AE7EF880064D3F6 /* FlowerViewCell.xib in Resources */,
 				184F83E22AE3E19B00F5C59B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,9 +269,12 @@
 				189414CC2AE52CB600DF8570 /* WikiDataDelegate.swift in Sources */,
 				189414CA2AE528CD00DF8570 /* WikiDataAccess.swift in Sources */,
 				184F83DB2AE3E19B00F5C59B /* AppDelegate.swift in Sources */,
+				18E48D1E2AE7D03A0064D3F6 /* FlowerViewCell.swift in Sources */,
 				189414D02AE548A800DF8570 /* Constants.swift in Sources */,
 				184F83DD2AE3E19B00F5C59B /* SceneDelegate.swift in Sources */,
+				18E48D212AE7D7280064D3F6 /* FlowerData.swift in Sources */,
 				183025742AE46C5100230944 /* WikiDataManager.swift in Sources */,
+				18E48D1B2AE7CF9E0064D3F6 /* MyFlowersViewController.swift in Sources */,
 				189414CE2AE546CC00DF8570 /* ShowDataViewController.swift in Sources */,
 				189414C82AE51CAA00DF8570 /* WikiData.swift in Sources */,
 			);
