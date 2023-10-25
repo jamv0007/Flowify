@@ -9,13 +9,14 @@ import UIKit
 
 class MyFlowersViewController: UIViewController {
     
-    var cells = [FlowerData(image: "Image", name: "Nuemero1",haveAlarm: false),FlowerData(image: "Image", name: "Nuemero1",haveAlarm: true),FlowerData(image: "Image", name: "Nuemero1",haveAlarm: true)]
+    var cells: [FlowerData] = [FlowerData]()
 
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var flowers: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         flowers.dataSource = self
         flowers.delegate = self
         flowers.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellWithReuseIdentifier: Constants.cellIdentifier)
@@ -40,6 +41,15 @@ class MyFlowersViewController: UIViewController {
     }
     
     @IBAction func addElement(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: Constants.segueAddFlower, sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.segueAddFlower {
+            if let dest = segue.destination as? AddFlowerViewController {
+                dest.delegate = self
+            }
+        }
     }
 }
 
@@ -50,7 +60,14 @@ extension MyFlowersViewController: UICollectionViewDataSource{
         let cell = flowers.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifier, for: indexPath) as? FlowerViewCell
         
         cell?.nameFlower.text = cells[indexPath.row].name
-        cell?.imageFlower.image = UIImage(named: cells[indexPath.row].image)
+        
+        
+        var path: String = cells[indexPath.row].image
+        var uimage: UIImage?
+        (path == "") ? (uimage = UIImage(named: "Image")) : (uimage = UIImage(named: path))
+
+        cell?.imageFlower.image = uimage
+        
         (!cells[indexPath.row].haveAlarm) ? (cell?.clock.isHidden = true) : (cell?.clock.isHidden = false)
         
         return cell!
@@ -69,6 +86,15 @@ extension MyFlowersViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
     }
+    
+}
+
+extension MyFlowersViewController: AddFlowerDelegate {
+    func returnNewElement(newElement: FlowerData) {
+        cells.append(newElement)
+        flowers.reloadData()
+    }
+    
     
 }
 
