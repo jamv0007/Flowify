@@ -1,5 +1,5 @@
 # Flowify
-Aplicación que permite reconocimiento de plantas con IA y mostrar información
+Aplicación que permite reconocimiento de plantas con Machine Learning y mostrar información
 
 La aplicación permite usar una imágen de una planta o flor de la galeria y usar un modelo entrenado para reconocer la planta y posteriormente obtener los datos de Wikipedia usando la API si es posible para mostrar una pantalla con información de la planta. La aplicación usa el modelo FlowerClassify.mmodel y los pod de Alamofire para peticiones web a la API de Wikipedia y SDWebImage para obtener la imágen de la misma página.
 
