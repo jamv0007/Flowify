@@ -197,11 +197,12 @@
                         <outlet property="addButton" destination="HZs-nL-XYf" id="NCu-Tv-eUH"/>
                         <outlet property="flowers" destination="XdM-6t-BHh" id="p2c-vk-ipY"/>
                         <segue destination="Y42-fh-8kg" kind="show" identifier="addFlower" id="YaX-Sy-lfw"/>
+                        <segue destination="Y42-fh-8kg" kind="show" identifier="modifyFlower" id="RpF-VR-n8S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="udJ-sM-Lmb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1921" y="718"/>
+            <point key="canvasLocation" x="1930" y="718"/>
         </scene>
         <!--Nueva planta-->
         <scene sceneID="09g-HS-fBJ">
@@ -302,11 +303,22 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Nueva planta" id="xDU-G1-S6K">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="GLh-pM-0CW">
-                            <connections>
-                                <action selector="saveData:" destination="Y42-fh-8kg" id="t2i-PE-RFn"/>
-                            </connections>
-                        </barButtonItem>
+                        <centerItemGroups>
+                            <barButtonItemGroup customizationDisposition="fixed" id="f2g-d6-fOb">
+                                <barButtonItems>
+                                    <barButtonItem title="Save" image="square.and.arrow.down.on.square.fill" catalog="system" id="GLh-pM-0CW">
+                                        <connections>
+                                            <action selector="saveData:" destination="Y42-fh-8kg" id="t2i-PE-RFn"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem systemItem="organize" id="3EE-0u-ywr">
+                                        <connections>
+                                            <action selector="searchImage:" destination="Y42-fh-8kg" id="zbj-SK-4M9"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </barButtonItems>
+                            </barButtonItemGroup>
+                        </centerItemGroups>
                     </navigationItem>
                     <connections>
                         <outlet property="imageSelected" destination="DA3-LE-De8" id="vnD-6N-aOx"/>
@@ -387,10 +399,14 @@
             <point key="canvasLocation" x="1028.3720930232557" y="717.81115879828326"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="RpF-VR-n8S"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="camera.macro" catalog="system" width="128" height="114"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="photo" catalog="system" width="128" height="93"/>
+        <image name="square.and.arrow.down.on.square.fill" catalog="system" width="122" height="128"/>
         <namedColor name="Color">
             <color red="0.72156862745098038" green="0.4823529411764706" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

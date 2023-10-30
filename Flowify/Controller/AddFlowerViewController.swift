@@ -7,12 +7,15 @@
 
 import UIKit
 
-class AddFlowerViewController: UIViewController {
+class AddFlowerViewController: UIViewController, UINavigationControllerDelegate {
 
     @IBOutlet weak var imageSelected: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var saveOutlet: UIBarButtonItem!
     
+    var picker = UIImagePickerController()
+    var id: Int64 = 0
+    var hasChangeImage: Bool = false
     
     var irrigationValue: IRRIGATION = IRRIGATION.LOW
     var lightValue: LIGHT = LIGHT.SUN
@@ -20,6 +23,16 @@ class AddFlowerViewController: UIViewController {
     
     private var addFlowerDelegate: AddFlowerDelegate?
     private var data: FlowerData?
+    
+    var dataSet: FlowerData {
+        get {
+            return data!
+        }
+        
+        set {
+            data = newValue
+        }
+    }
     
     var delegate: AddFlowerDelegate?{
         get{
@@ -38,9 +51,22 @@ class AddFlowerViewController: UIViewController {
         nameTextField.layer.borderColor = UIColor(named: "Border")?.cgColor
         nameTextField.clipsToBounds = true
         nameTextField.changeTheme(style: traitCollection.userInterfaceStyle)
+        
+        
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = false
+        
+        id = Int64(UserDefaults.standard.integer(forKey: "ID"))
+        
+        print(ImageManager().documentURL)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        
+        UserDefaults.standard.set(id, forKey: "ID")
+        
         if let d = data {
             addFlowerDelegate?.returnNewElement(newElement: d)
         }
@@ -51,7 +77,16 @@ class AddFlowerViewController: UIViewController {
     }
     
     @IBAction func saveData(_ sender: UIBarButtonItem) {
-       data = FlowerData(image: "", name: nameTextField.text ?? "", irrigation: irrigationValue, light: lightValue, location: locationValue, haveAlarm: false)
+        var imageURL: String = ""
+        
+        if hasChangeImage {
+            ImageManager().saveImage(image: imageSelected.image, name: "\(id)")
+            imageURL = "\(id)"
+            id += 1
+        }
+        
+        data = FlowerData()
+        data?.setData(image: imageURL, name: nameTextField.text ?? "", irrigation_: irrigationValue, light_: lightValue, location_: locationValue, haveAlarm: false)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -65,6 +100,21 @@ class AddFlowerViewController: UIViewController {
         locationValue = LOCATION(rawValue: sender.selectedSegmentIndex) ?? .INDOOR
     }
     
+    @IBAction func searchImage(_ sender: UIBarButtonItem) {
+        present(picker, animated: true)
+    }
+}
+
+extension AddFlowerViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let userImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            imageSelected.image = userImage
+            hasChangeImage = true
+        }
+        
+        self.picker.dismiss(animated: true)
+    }
 }
 
 

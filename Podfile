@@ -8,5 +8,6 @@ target 'Flowify' do
   # Pods for Flowify
   pod 'Alamofire', '~> 5.8.0'
   pod 'SDWebImage'
+  pod 'RealmSwift', '~>10'
 
 end

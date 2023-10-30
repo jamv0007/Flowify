@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		182C6B902AED0D52004887CA /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182C6B8F2AED0D52004887CA /* ImageManager.swift */; };
 		183025742AE46C5100230944 /* WikiDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183025732AE46C5100230944 /* WikiDataManager.swift */; };
 		184F83DB2AE3E19B00F5C59B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184F83DA2AE3E19B00F5C59B /* AppDelegate.swift */; };
 		184F83DD2AE3E19B00F5C59B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184F83DC2AE3E19B00F5C59B /* SceneDelegate.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		182C6B8F2AED0D52004887CA /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		183025732AE46C5100230944 /* WikiDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiDataManager.swift; sourceTree = "<group>"; };
 		184F83D72AE3E19B00F5C59B /* Flowify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flowify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		184F83DA2AE3E19B00F5C59B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				184F83F02AE40BE900F5C59B /* FlowerClassifier.mlmodel */,
 				184F83E82AE3E19D00F5C59B /* Info.plist */,
 				189414CF2AE548A800DF8570 /* Constants.swift */,
+				182C6B8F2AED0D52004887CA /* ImageManager.swift */,
 			);
 			path = Flowify;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				184F83DD2AE3E19B00F5C59B /* SceneDelegate.swift in Sources */,
 				18E48D212AE7D7280064D3F6 /* FlowerData.swift in Sources */,
 				183025742AE46C5100230944 /* WikiDataManager.swift in Sources */,
+				182C6B902AED0D52004887CA /* ImageManager.swift in Sources */,
 				18E48D1B2AE7CF9E0064D3F6 /* MyFlowersViewController.swift in Sources */,
 				18C480832AE9479700F5275F /* AddFlowerViewController.swift in Sources */,
 				189414CE2AE546CC00DF8570 /* ShowDataViewController.swift in Sources */,

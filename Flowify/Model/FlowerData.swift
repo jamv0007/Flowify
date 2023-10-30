@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 enum IRRIGATION: Int{
     case LOW = 0,MODERATE = 1,HIGH = 2
@@ -20,20 +21,50 @@ enum LOCATION: Int{
 }
 
 
-class FlowerData{
-    var image: String
-    var name: String
-    var irrigation: IRRIGATION
-    var light:LIGHT
-    var location: LOCATION
-    var haveAlarm: Bool
+class FlowerData: Object{
+    @objc dynamic var image: String = ""
+    @objc dynamic var name: String = ""
+    @objc dynamic var haveAlarm: Bool = false
     
-    init(image: String, name: String, irrigation: IRRIGATION, light: LIGHT, location: LOCATION, haveAlarm: Bool) {
+    @objc dynamic private var irrigationValue: Int = 0
+    @objc dynamic private var lightValue: Int = 0
+    @objc dynamic private var locationValue: Int = 0
+    var irrigation: IRRIGATION {
+        get{
+            return IRRIGATION(rawValue: irrigationValue)!
+        }
+        
+        set{
+            irrigationValue = newValue.rawValue
+        }
+    }
+    var light:LIGHT {
+        get{
+            return LIGHT(rawValue: lightValue)!
+        }
+        
+        set{
+            lightValue = newValue.rawValue
+        }
+    }
+    var location: LOCATION{
+        get{
+            return LOCATION(rawValue: locationValue)!
+        }
+        
+        set{
+            locationValue = newValue.rawValue
+        }
+    }
+    
+
+    
+    func setData(image: String, name: String, irrigation_: IRRIGATION, light_: LIGHT, location_: LOCATION, haveAlarm: Bool) {
         self.image = image
         self.name = name
-        self.irrigation = irrigation
-        self.light = light
-        self.location = location
+        self.irrigation = irrigation_
+        self.light = light_
+        self.location = location_
         self.haveAlarm = haveAlarm
     }
 }
