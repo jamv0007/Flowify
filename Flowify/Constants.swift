@@ -11,6 +11,7 @@ struct Constants{
     static let segueShowData = "showFlowerData"
     static let segueAddFlower = "addFlower"
     static let segueModifyFlower = "modifyFlower"
+    static let segueInfo = "segueInfo"
     static let cellIdentifier = "cellFlower"
     static let cellNibName = "FlowerViewCell"
 }

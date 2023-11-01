@@ -9,4 +9,6 @@ import Foundation
 
 protocol AddFlowerDelegate{
     func returnNewElement(newElement: FlowerData)
+    func returnModifyData()
+    func returnError(error: String)
 }

@@ -16,6 +16,8 @@ class FlowerViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.contentView.layer.cornerRadius = 10
+        self.contentView.clipsToBounds = true
     }
 
 }

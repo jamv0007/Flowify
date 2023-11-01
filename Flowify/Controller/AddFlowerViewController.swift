@@ -6,13 +6,19 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddFlowerViewController: UIViewController, UINavigationControllerDelegate {
 
+    var realm = try! Realm()
+    
     @IBOutlet weak var imageSelected: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var saveOutlet: UIBarButtonItem!
     
+    @IBOutlet weak var irrigationOutlet: UISegmentedControl!
+    @IBOutlet weak var lightOutlet: UISegmentedControl!
+    @IBOutlet weak var locationOutlet: UISegmentedControl!
     var picker = UIImagePickerController()
     var id: Int64 = 0
     var hasChangeImage: Bool = false
@@ -23,14 +29,35 @@ class AddFlowerViewController: UIViewController, UINavigationControllerDelegate 
     
     private var addFlowerDelegate: AddFlowerDelegate?
     private var data: FlowerData?
+    private var isModify: Bool = false
+    private var pressCell: IndexPath?
     
-    var dataSet: FlowerData {
+    var index: IndexPath {
+        get{
+            return pressCell!
+        }
+        
+        set{
+            pressCell = newValue
+        }
+    }
+    
+    var dataSet: FlowerData? {
         get {
             return data!
         }
         
         set {
             data = newValue
+        }
+    }
+    
+    var modify: Bool {
+        get{
+            return isModify
+        }
+        set{
+            isModify = newValue
         }
     }
     
@@ -52,12 +79,28 @@ class AddFlowerViewController: UIViewController, UINavigationControllerDelegate 
         nameTextField.clipsToBounds = true
         nameTextField.changeTheme(style: traitCollection.userInterfaceStyle)
         
+        imageSelected.layer.cornerRadius = 10.0
+        imageSelected.clipsToBounds = true
+
+        
         
         picker.delegate = self
         picker.sourceType = .photoLibrary
         picker.allowsEditing = false
         
         id = Int64(UserDefaults.standard.integer(forKey: "ID"))
+        
+        if modify {
+            print("eeee")
+            irrigationOutlet.selectedSegmentIndex = data?.irrigation.rawValue ?? 0
+            lightOutlet.selectedSegmentIndex = data?.light.rawValue ?? 0
+            locationOutlet.selectedSegmentIndex = data?.location.rawValue ?? 0
+            irrigationValue = data?.irrigation ?? IRRIGATION.LOW
+            lightValue = data?.light ?? LIGHT.SUN
+            locationValue = data?.location ?? LOCATION.OUTSIDE
+            imageSelected.image = ImageManager().getImage(name: dataSet?.image ?? "")
+            nameTextField.text = dataSet?.name ?? ""
+        }
         
         print(ImageManager().documentURL)
         
@@ -68,7 +111,11 @@ class AddFlowerViewController: UIViewController, UINavigationControllerDelegate 
         UserDefaults.standard.set(id, forKey: "ID")
         
         if let d = data {
-            addFlowerDelegate?.returnNewElement(newElement: d)
+            if isModify{
+                addFlowerDelegate?.returnModifyData()
+            }else{
+                addFlowerDelegate?.returnNewElement(newElement: d)
+            }
         }
     }
     
@@ -80,13 +127,47 @@ class AddFlowerViewController: UIViewController, UINavigationControllerDelegate 
         var imageURL: String = ""
         
         if hasChangeImage {
-            ImageManager().saveImage(image: imageSelected.image, name: "\(id)")
-            imageURL = "\(id)"
-            id += 1
+            if isModify {
+                if dataSet?.image != "" {
+                    if (ImageManager().removeImage(name: dataSet?.image ?? "")) {
+                        ImageManager().saveImage(image: imageSelected.image, name: "\(dataSet?.image ?? "")")
+                    }else{
+                        delegate?.returnError(error: "No se ha podido eliminar la imágen")
+                    }
+                }else{
+                    ImageManager().saveImage(image: imageSelected.image, name: "\(id)")
+                    do {
+                        try realm.write{
+                            dataSet?.image = "\(id)"
+                        }
+                    }catch{
+                        addFlowerDelegate?.returnError(error: "Error al guardar la imagen Realm: \(error)")
+                    }
+                    id += 1
+                }
+            }else{
+                ImageManager().saveImage(image: imageSelected.image, name: "\(id)")
+                imageURL = "\(id)"
+                id += 1
+            }
         }
         
-        data = FlowerData()
-        data?.setData(image: imageURL, name: nameTextField.text ?? "", irrigation_: irrigationValue, light_: lightValue, location_: locationValue, haveAlarm: false)
+        if !isModify {
+            data = FlowerData()
+            data?.setData(image: imageURL, name: nameTextField.text ?? "", irrigation_: irrigationValue, light_: lightValue, location_: locationValue, haveAlarm: false)
+        }else{
+            do {
+                try realm.write{
+                    dataSet?.name = nameTextField.text ?? ""
+                    dataSet?.irrigation = irrigationValue
+                    dataSet?.light = lightValue
+                    dataSet?.location = locationValue
+                }
+            }catch{
+                addFlowerDelegate?.returnError(error: "Error al guardar datos Realm: \(error)")
+            }
+            
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
