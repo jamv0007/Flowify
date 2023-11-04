@@ -15,6 +15,7 @@ class MyFlowersViewController: UIViewController {
 
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var flowers: UICollectionView!
+    
     private var pressCell: IndexPath?
     
     override func viewDidLoad() {
@@ -60,12 +61,15 @@ class MyFlowersViewController: UIViewController {
                 dest.delegate = self
                 
                 if pressCell != nil {
-                    print("aaaa")
                     dest.dataSet = self.cells?[pressCell?.row ?? 0]
                     dest.modify = true
                     dest.index = pressCell!
                     
                 }
+            }
+        }else if segue.identifier == Constants.segueInfo {
+            if let dest = segue.destination as? InfoViewController {
+                
             }
         }
     }
@@ -101,34 +105,10 @@ class MyFlowersViewController: UIViewController {
                 
                 let alertControllerBottomSheet = UIAlertController(title: cell?.nameFlower.text, message: "", preferredStyle: .actionSheet)
                 
-                let alertAction1 = UIAlertAction(title: "Modificar", style: .default){ (accion) in
-                    
-                    self.pressCell = indexPath
-                    alertControllerBottomSheet.dismiss(animated: true)
-                    self.performSegue(withIdentifier: Constants.segueModifyFlower, sender: self)
-                    
-                }
-                let alertAction2 = UIAlertAction(title: "Eliminar", style: .destructive){ (accion) in
-                    
-                    alertControllerBottomSheet.dismiss(animated: true)
-                    if let deleteCell = self.cells?[indexPath.row] {
-                        do{
-                            try self.realm.write{
-                                self.realm.delete(deleteCell)
-                            }
-                        }catch{
-                            print("Error al eliminar: \(error)")
-                        }
-                        
-                        self.flowers.reloadData()
-                    }
-                }
-                
                 let alertAction = UIAlertAction(title: "Cancelar", style: .cancel)
-                alertAction1.setValue(UIImage.init(systemName: "pencil"), forKey: "image")
-                alertControllerBottomSheet.addAction(alertAction1)
-                alertAction2.setValue(UIImage.init(systemName: "trash"), forKey: "image")
-                alertControllerBottomSheet.addAction(alertAction2)
+                
+                setAlertActionModify(alertControllerBottomSheet, indexPath: indexPath)
+                setAlertActionDelete(alertControllerBottomSheet, indexPath: indexPath)
                 alertControllerBottomSheet.addAction(alertAction)
                 
                 present(alertControllerBottomSheet, animated: true)
@@ -136,6 +116,42 @@ class MyFlowersViewController: UIViewController {
                 print("No se ha podido localizar la celda")
             }
         }
+    }
+    
+    
+    private func setAlertActionModify(_ alertControllerBottomSheet: UIAlertController, indexPath: IndexPath){
+        let alertAction1 = UIAlertAction(title: "Modificar", style: .default){ (accion) in
+            
+            self.pressCell = indexPath
+            alertControllerBottomSheet.dismiss(animated: true)
+            self.performSegue(withIdentifier: Constants.segueModifyFlower, sender: self)
+            
+        }
+        
+        alertAction1.setValue(UIImage.init(systemName: "pencil"), forKey: "image")
+        alertControllerBottomSheet.addAction(alertAction1)
+    }
+    
+    
+    private func setAlertActionDelete(_ alertControllerBottomSheet: UIAlertController, indexPath: IndexPath){
+        let alertAction2 = UIAlertAction(title: "Eliminar", style: .destructive){ (accion) in
+            
+            alertControllerBottomSheet.dismiss(animated: true)
+            if let deleteCell = self.cells?[indexPath.row] {
+                do{
+                    try self.realm.write{
+                        self.realm.delete(deleteCell)
+                    }
+                }catch{
+                    print("Error al eliminar: \(error)")
+                }
+                
+                self.flowers.reloadData()
+            }
+        }
+        
+        alertAction2.setValue(UIImage.init(systemName: "trash"), forKey: "image")
+        alertControllerBottomSheet.addAction(alertAction2)
     }
     
 }
@@ -171,6 +187,8 @@ extension MyFlowersViewController: UICollectionViewDataSource{
 
 extension MyFlowersViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        performSegue(withIdentifier: Constants.segueInfo, sender: self)
         
     }
     

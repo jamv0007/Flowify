@@ -21,6 +21,7 @@
 		189414CC2AE52CB600DF8570 /* WikiDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189414CB2AE52CB600DF8570 /* WikiDataDelegate.swift */; };
 		189414CE2AE546CC00DF8570 /* ShowDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189414CD2AE546CC00DF8570 /* ShowDataViewController.swift */; };
 		189414D02AE548A800DF8570 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189414CF2AE548A800DF8570 /* Constants.swift */; };
+		18988D832AF4EFF00000DA9B /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18988D822AF4EFF00000DA9B /* InfoViewController.swift */; };
 		18C480832AE9479700F5275F /* AddFlowerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C480822AE9479700F5275F /* AddFlowerViewController.swift */; };
 		18C480852AE97C3B00F5275F /* AddFlowerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C480842AE97C3B00F5275F /* AddFlowerDelegate.swift */; };
 		18E48D1B2AE7CF9E0064D3F6 /* MyFlowersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E48D1A2AE7CF9E0064D3F6 /* MyFlowersViewController.swift */; };
@@ -47,6 +48,7 @@
 		189414CB2AE52CB600DF8570 /* WikiDataDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiDataDelegate.swift; sourceTree = "<group>"; };
 		189414CD2AE546CC00DF8570 /* ShowDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDataViewController.swift; sourceTree = "<group>"; };
 		189414CF2AE548A800DF8570 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		18988D822AF4EFF00000DA9B /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		18C480822AE9479700F5275F /* AddFlowerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFlowerViewController.swift; sourceTree = "<group>"; };
 		18C480842AE97C3B00F5275F /* AddFlowerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFlowerDelegate.swift; sourceTree = "<group>"; };
 		18E48D1A2AE7CF9E0064D3F6 /* MyFlowersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlowersViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				18E48D1A2AE7CF9E0064D3F6 /* MyFlowersViewController.swift */,
 				18C480822AE9479700F5275F /* AddFlowerViewController.swift */,
 				18C480842AE97C3B00F5275F /* AddFlowerDelegate.swift */,
+				18988D822AF4EFF00000DA9B /* InfoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				184F83DB2AE3E19B00F5C59B /* AppDelegate.swift in Sources */,
 				18E48D1E2AE7D03A0064D3F6 /* FlowerViewCell.swift in Sources */,
 				189414D02AE548A800DF8570 /* Constants.swift in Sources */,
+				18988D832AF4EFF00000DA9B /* InfoViewController.swift in Sources */,
 				184F83DD2AE3E19B00F5C59B /* SceneDelegate.swift in Sources */,
 				18E48D212AE7D7280064D3F6 /* FlowerData.swift in Sources */,
 				183025742AE46C5100230944 /* WikiDataManager.swift in Sources */,
@@ -439,11 +443,11 @@
 				DEVELOPMENT_TEAM = XNP4T4STQ7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Flowify/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Se necesita acceso a la biblioteca para escoger fotos de plantas y analizarlas ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -468,11 +472,11 @@
 				DEVELOPMENT_TEAM = XNP4T4STQ7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Flowify/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Se necesita acceso a la biblioteca para escoger fotos de plantas y analizarlas ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

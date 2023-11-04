@@ -22,11 +22,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        selectImage.layer.cornerRadius = 10.0
+        selectImage.clipsToBounds = true
         //Se delega al manager para que notifique
         manager.delegate = self
         //Instancian los estilos de los elementos
         changeIconColor()
         buttonOutlet.changeFormat()
+        
+        changeDefaultImageTheme()
         //Se delega el photo picker
         pickerController.delegate = self
         pickerController.sourceType = .photoLibrary
@@ -93,9 +97,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
             
-            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-                changeIconColor()
-            }
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            changeIconColor()
+        }
+        
+        changeDefaultImageTheme()
+            
+    }
+    
+    private func changeDefaultImageTheme(){
+        if imageToProcess == nil {
+            (traitCollection.userInterfaceStyle == .light) ? (selectImage.image = UIImage(named: "Image 2")) : (selectImage.image = UIImage(named: "Image 1"))
+        }
     }
     
     func changeIconColor(){

@@ -19,6 +19,9 @@ class ShowDataViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        imageFlower.layer.cornerRadius = 10.0
+        imageFlower.clipsToBounds = true
+        
         if let currentData = data {
             nameFlower.text = currentData.title
             descriptionFlower.text = currentData.text

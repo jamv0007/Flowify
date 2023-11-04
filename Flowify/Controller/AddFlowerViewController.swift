@@ -10,7 +10,7 @@ import RealmSwift
 
 class AddFlowerViewController: UIViewController, UINavigationControllerDelegate {
 
-    var realm = try! Realm()
+    private var realm = try! Realm()
     
     @IBOutlet weak var imageSelected: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
@@ -19,22 +19,24 @@ class AddFlowerViewController: UIViewController, UINavigationControllerDelegate 
     @IBOutlet weak var irrigationOutlet: UISegmentedControl!
     @IBOutlet weak var lightOutlet: UISegmentedControl!
     @IBOutlet weak var locationOutlet: UISegmentedControl!
-    var picker = UIImagePickerController()
-    var id: Int64 = 0
-    var hasChangeImage: Bool = false
     
-    var irrigationValue: IRRIGATION = IRRIGATION.LOW
-    var lightValue: LIGHT = LIGHT.SUN
-    var locationValue: LOCATION = LOCATION.INDOOR
+    private var picker = UIImagePickerController()
+    private var id: Int64 = 0
+    private var hasChangeImage: Bool = false
+    private var hasImage: Bool = false
+    
+    private var irrigationValue: IRRIGATION = IRRIGATION.LOW
+    private var lightValue: LIGHT = LIGHT.SUN
+    private var locationValue: LOCATION = LOCATION.INDOOR
     
     private var addFlowerDelegate: AddFlowerDelegate?
     private var data: FlowerData?
     private var isModify: Bool = false
     private var pressCell: IndexPath?
     
-    var index: IndexPath {
+    var index: IndexPath? {
         get{
-            return pressCell!
+            return pressCell ?? nil
         }
         
         set{
@@ -44,7 +46,7 @@ class AddFlowerViewController: UIViewController, UINavigationControllerDelegate 
     
     var dataSet: FlowerData? {
         get {
-            return data!
+            return data ?? nil
         }
         
         set {
@@ -63,7 +65,7 @@ class AddFlowerViewController: UIViewController, UINavigationControllerDelegate 
     
     var delegate: AddFlowerDelegate?{
         get{
-            return addFlowerDelegate
+            return addFlowerDelegate ?? nil
         }
         
         set{
@@ -73,17 +75,14 @@ class AddFlowerViewController: UIViewController, UINavigationControllerDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameTextField.layer.cornerRadius = 10.0
-        nameTextField.layer.borderWidth = 2.0
-        nameTextField.layer.borderColor = UIColor(named: "Border")?.cgColor
-        nameTextField.clipsToBounds = true
-        nameTextField.changeTheme(style: traitCollection.userInterfaceStyle)
+        
+        nameTextField.changeAparence()
+        
+        hasImage = false
         
         imageSelected.layer.cornerRadius = 10.0
         imageSelected.clipsToBounds = true
 
-        
-        
         picker.delegate = self
         picker.sourceType = .photoLibrary
         picker.allowsEditing = false
@@ -91,18 +90,29 @@ class AddFlowerViewController: UIViewController, UINavigationControllerDelegate 
         id = Int64(UserDefaults.standard.integer(forKey: "ID"))
         
         if modify {
-            print("eeee")
-            irrigationOutlet.selectedSegmentIndex = data?.irrigation.rawValue ?? 0
-            lightOutlet.selectedSegmentIndex = data?.light.rawValue ?? 0
-            locationOutlet.selectedSegmentIndex = data?.location.rawValue ?? 0
-            irrigationValue = data?.irrigation ?? IRRIGATION.LOW
-            lightValue = data?.light ?? LIGHT.SUN
-            locationValue = data?.location ?? LOCATION.OUTSIDE
-            imageSelected.image = ImageManager().getImage(name: dataSet?.image ?? "")
-            nameTextField.text = dataSet?.name ?? ""
+            changeToModify()
         }
         
         print(ImageManager().documentURL)
+        
+    }
+    
+    private func changeToModify(){
+        irrigationOutlet.selectedSegmentIndex = data?.irrigation.rawValue ?? 0
+        lightOutlet.selectedSegmentIndex = data?.light.rawValue ?? 0
+        locationOutlet.selectedSegmentIndex = data?.location.rawValue ?? 0
+        irrigationValue = data?.irrigation ?? IRRIGATION.LOW
+        lightValue = data?.light ?? LIGHT.SUN
+        locationValue = data?.location ?? LOCATION.OUTSIDE
+        nameTextField.text = dataSet?.name ?? ""
+        
+        if dataSet?.image != "" {
+            imageSelected.image = ImageManager().getImage(name: dataSet?.image ?? "")
+            hasImage = true
+        }else{
+            imageSelected.image = UIImage(named: "Image 2")
+            hasImage = false
+        }
         
     }
     
@@ -121,54 +131,64 @@ class AddFlowerViewController: UIViewController, UINavigationControllerDelegate 
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         nameTextField.changeTheme(style: traitCollection.userInterfaceStyle)
+        
     }
     
     @IBAction func saveData(_ sender: UIBarButtonItem) {
         var imageURL: String = ""
         
+        //Si se ha cambiado la imágen se hace algo
         if hasChangeImage {
-            if isModify {
-                if dataSet?.image != "" {
-                    if (ImageManager().removeImage(name: dataSet?.image ?? "")) {
-                        ImageManager().saveImage(image: imageSelected.image, name: "\(dataSet?.image ?? "")")
-                    }else{
-                        delegate?.returnError(error: "No se ha podido eliminar la imágen")
+            if hasImage {
+               //Borrar y copiar
+                //Tiene que haber modificado uno ya guardado
+                if let dataSave = data {
+                    if (!ImageManager().replaceImage(name: dataSave.image, image: imageSelected.image)) {
+                        delegate?.returnError(error: "No se ha podido modificar la imágen")
                     }
-                }else{
-                    ImageManager().saveImage(image: imageSelected.image, name: "\(id)")
-                    do {
-                        try realm.write{
-                            dataSet?.image = "\(id)"
-                        }
-                    }catch{
-                        addFlowerDelegate?.returnError(error: "Error al guardar la imagen Realm: \(error)")
-                    }
-                    id += 1
+                    
+                    
                 }
             }else{
+                //Copiar y Guardar nombre
+                //Pueden modificar o no
                 ImageManager().saveImage(image: imageSelected.image, name: "\(id)")
                 imageURL = "\(id)"
                 id += 1
+                
+                
             }
         }
         
-        if !isModify {
-            data = FlowerData()
-            data?.setData(image: imageURL, name: nameTextField.text ?? "", irrigation_: irrigationValue, light_: lightValue, location_: locationValue, haveAlarm: false)
-        }else{
-            do {
-                try realm.write{
-                    dataSet?.name = nameTextField.text ?? ""
-                    dataSet?.irrigation = irrigationValue
-                    dataSet?.light = lightValue
-                    dataSet?.location = locationValue
-                }
-            }catch{
-                addFlowerDelegate?.returnError(error: "Error al guardar datos Realm: \(error)")
-            }
-            
+        if modify {
+            sendDataBackModifyData(imageURL: imageURL)
+        }else {
+            sendDataBackNew(imageURL: imageURL)
         }
+        
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func sendDataBackModifyData(imageURL: String){
+        do {
+            try realm.write{
+                dataSet?.name = nameTextField.text ?? ""
+                dataSet?.irrigation = irrigationValue
+                dataSet?.light = lightValue
+                dataSet?.location = locationValue
+                if dataSet?.image == "" && imageURL != ""{
+                    dataSet?.image = imageURL
+                }
+                
+            }
+        }catch{
+            delegate?.returnError(error: "Error al guardar datos Realm: \(error)")
+        }
+    }
+    
+    private func sendDataBackNew(imageURL: String){
+        data = FlowerData()
+        data?.setData(image: imageURL, name: nameTextField.text ?? "", irrigation_: irrigationValue, light_: lightValue, location_: locationValue, haveAlarm: false)
     }
     
     @IBAction func irrigation(_ sender: UISegmentedControl) {
@@ -201,17 +221,25 @@ extension AddFlowerViewController: UIImagePickerControllerDelegate {
 
 extension UITextField{
     
+    func changeAparence(){
+        self.layer.cornerRadius = 10.0
+        self.layer.borderWidth = 2.0
+        self.layer.borderColor = UIColor(named: "Border")?.cgColor
+        self.clipsToBounds = true
+        self.changeTheme(style: traitCollection.userInterfaceStyle)
+    }
+    
     func changeTheme(style: UIUserInterfaceStyle){
         var color: UIColor = UIColor.clear
         (style == .dark) ? (color = UIColor.white) : (color = UIColor.black)
         
         var colorBackGround: UIColor = UIColor.clear
-        (style == .dark) ? (colorBackGround = UIColor(red: 159/255, green: 188/255, blue: 169/255, alpha: 1)) : (colorBackGround = UIColor.white)
+        (style == .dark) ? (colorBackGround = UIColor(red: 110/255, green: 140/255, blue: 123/255, alpha: 1)) : (colorBackGround = UIColor.white)
         
         self.textColor = color
         self.backgroundColor = colorBackGround
         
-        self.attributedPlaceholder = NSTextStorage(string: "Nombre",attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)])
+        self.attributedPlaceholder = NSTextStorage(string: "Nombre",attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "Color 3")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)])
         
     }
 }
