@@ -69,7 +69,9 @@ class MyFlowersViewController: UIViewController {
             }
         }else if segue.identifier == Constants.segueInfo {
             if let dest = segue.destination as? InfoViewController {
-                
+                if let press = pressCell{
+                    dest.data = (self.cells?[press.row])!
+                }
             }
         }
     }
@@ -188,6 +190,7 @@ extension MyFlowersViewController: UICollectionViewDataSource{
 extension MyFlowersViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        self.pressCell = indexPath
         performSegue(withIdentifier: Constants.segueInfo, sender: self)
         
     }

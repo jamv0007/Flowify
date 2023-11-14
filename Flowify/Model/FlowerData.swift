@@ -17,7 +17,7 @@ enum LIGHT: Int{
 }
 
 enum LOCATION: Int{
-    case INDOOR = 0,OUTSIDE = 1
+    case INDOOR = 0,OUTSIDE = 1,BOTH = 2
 }
 
 
@@ -57,7 +57,36 @@ class FlowerData: Object{
         }
     }
     
-
+    @objc dynamic private var notification: NotificationData = NotificationData()
+    
+    func setHour(hour: Int, minutes: Int){
+        notification.currentHour = hour
+        notification.currentMinutes = minutes
+    }
+    
+    func getHour() -> Int{
+        return notification.currentHour
+    }
+    
+    func getMinutes() -> Int {
+        return notification.currentMinutes
+    }
+    
+    func getDay(ind: Int) -> Days{
+        return notification.days[ind]
+    }
+    
+    func addDays(d: Days){
+        notification.days.append(d)
+    }
+    
+    func removeAllDays(){
+        notification.days.removeAll()
+    }
+    
+    func getDaysNumber() -> Int{
+        return notification.days.count
+    }
     
     func setData(image: String, name: String, irrigation_: IRRIGATION, light_: LIGHT, location_: LOCATION, haveAlarm: Bool) {
         self.image = image
@@ -67,4 +96,5 @@ class FlowerData: Object{
         self.location = location_
         self.haveAlarm = haveAlarm
     }
+    
 }
