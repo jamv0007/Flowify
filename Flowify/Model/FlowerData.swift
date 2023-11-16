@@ -57,35 +57,43 @@ class FlowerData: Object{
         }
     }
     
-    @objc dynamic private var notification: NotificationData = NotificationData()
+    @objc dynamic private var notification: NotificationData? = NotificationData()
     
     func setHour(hour: Int, minutes: Int){
-        notification.currentHour = hour
-        notification.currentMinutes = minutes
+        notification!.currentHour = hour
+        notification!.currentMinutes = minutes
     }
     
     func getHour() -> Int{
-        return notification.currentHour
+        return notification!.currentHour
     }
     
     func getMinutes() -> Int {
-        return notification.currentMinutes
+        return notification!.currentMinutes
     }
     
     func getDay(ind: Int) -> Days{
-        return notification.days[ind]
+        return Days(rawValue: notification!.days[ind]) ?? .MON
     }
     
     func addDays(d: Days){
-        notification.days.append(d)
+        notification!.days.append(d.rawValue)
     }
     
     func removeAllDays(){
-        notification.days.removeAll()
+        notification!.days.removeAll()
     }
     
     func getDaysNumber() -> Int{
-        return notification.days.count
+        return notification!.days.count
+    }
+    
+    func getAM() -> Int{
+        return notification!.am
+    }
+    
+    func setAM(am: Bool){
+        if(am){notification?.am = 0} else{ notification?.am = 1 }
     }
     
     func setData(image: String, name: String, irrigation_: IRRIGATION, light_: LIGHT, location_: LOCATION, haveAlarm: Bool) {

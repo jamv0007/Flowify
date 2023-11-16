@@ -9,5 +9,6 @@ target 'Flowify' do
   pod 'Alamofire', '~> 5.8.0'
   pod 'SDWebImage'
   pod 'RealmSwift', '~>10'
+  pod 'MultiSelectSegmentedControl'
 
 end

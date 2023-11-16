@@ -6,21 +6,18 @@
 //
 
 import UIKit
+import Foundation
+import RealmSwift
 
-enum Days: String{
-    case MON = "Mon", TUE = "Tue", WED = "Wed", THU = "Thu", FRI = "Fri", SAT = "Sat", SUN = "Sun"
+enum Days: Int{
+    case MON = 0, TUE = 1, WED = 2, THU = 3, FRI = 4, SAT = 5, SUN = 6
     
 }
 
-class NotificationData: NSObject{
-    var days = [Days]()
-    var currentHour: Int
-    var currentMinutes: Int
-    
-    override init(){
-        currentHour = Calendar.current.component(.hour, from: Date())
-        currentMinutes = Calendar.current.component(.minute, from: Date())
-        super.init()
-    }
+class NotificationData: Object{
+    dynamic var days: List<Days.RawValue> = List<Days.RawValue>()
+    @objc dynamic var currentHour: Int = 0
+    @objc dynamic var currentMinutes: Int = 0
+    @objc dynamic var am: Int = 0
     
 }

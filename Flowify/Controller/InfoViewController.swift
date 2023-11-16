@@ -95,7 +95,8 @@ class InfoViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.segueAlert {
-            
+            let dest = segue.destination as? NotificationViewController
+            dest?.data = self.data
         }
     }
     

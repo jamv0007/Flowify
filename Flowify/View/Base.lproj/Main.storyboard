@@ -383,52 +383,20 @@
                                     <action selector="activeNotification:" destination="HMf-f8-t2H" eventType="valueChanged" id="use-Vo-li8"/>
                                 </connections>
                             </switch>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3gx-7C-pf2">
-                                <rect key="frame" x="30" y="215" width="370" height="51"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="FRP-FH-Ycz"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Mon"/>
-                                    <segment title="Tue"/>
-                                    <segment title="Wed"/>
-                                    <segment title="Thu"/>
-                                </segments>
-                                <color key="selectedSegmentTintColor" name="Color"/>
-                                <connections>
-                                    <action selector="daySelected1Change:" destination="HMf-f8-t2H" eventType="valueChanged" id="M8e-Vw-y6j"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ig1-YC-io0">
-                                <rect key="frame" x="30" y="265" width="370" height="51"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="3M2-ym-iJf"/>
-                                    <constraint firstAttribute="height" constant="50" id="Q6N-Lc-GER"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Fri"/>
-                                    <segment title="Sat"/>
-                                    <segment title="Sun"/>
-                                </segments>
-                                <color key="selectedSegmentTintColor" name="Color"/>
-                                <connections>
-                                    <action selector="daySelected2Change:" destination="HMf-f8-t2H" eventType="valueChanged" id="jlf-Ls-hD2"/>
-                                </connections>
-                            </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dias de la semana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jeV-BX-k9p">
-                                <rect key="frame" x="30" y="194" width="138" height="16"/>
+                                <rect key="frame" x="30" y="194" width="138" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hora" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uq-Jd-PK5">
-                                <rect key="frame" x="30" y="356" width="37" height="20.666666666666686"/>
+                                <rect key="frame" x="30" y="349.33333333333331" width="37" height="20.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDu-Ot-qZk">
-                                <rect key="frame" x="0.0" y="381.66666666666669" width="430" height="540.33333333333326"/>
+                                <rect key="frame" x="0.0" y="375" width="430" height="547"/>
                                 <subviews>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lc2-Qg-mel">
                                         <rect key="frame" x="30" y="0.0" width="400" height="50"/>
@@ -447,42 +415,56 @@
                                     <constraint firstItem="lc2-Qg-mel" firstAttribute="leading" secondItem="fDu-Ot-qZk" secondAttribute="leading" constant="30" id="yWT-xB-rAn"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AC-SA-TmU">
+                                <rect key="frame" x="30" y="219.33333333333334" width="370" height="50.000000000000028"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="H7F-yP-4CF"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vs9-67-bm3">
+                                <rect key="frame" x="30" y="270.33333333333331" width="370" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ncd-mJ-XXI"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="rZ5-Qq-MCN"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dqe-zv-jmL"/>
                         <color key="backgroundColor" name="Primary"/>
                         <constraints>
+                            <constraint firstItem="8AC-SA-TmU" firstAttribute="top" secondItem="jeV-BX-k9p" secondAttribute="bottom" constant="5" id="046-OO-Yju"/>
                             <constraint firstItem="fDu-Ot-qZk" firstAttribute="leading" secondItem="dqe-zv-jmL" secondAttribute="leading" id="1Sk-rL-aDn"/>
-                            <constraint firstItem="ig1-YC-io0" firstAttribute="leading" secondItem="dqe-zv-jmL" secondAttribute="leading" constant="30" id="7ds-Jp-Ka6"/>
+                            <constraint firstItem="8uq-Jd-PK5" firstAttribute="top" secondItem="Vs9-67-bm3" secondAttribute="bottom" constant="29" id="2JV-fs-Syi"/>
+                            <constraint firstItem="dqe-zv-jmL" firstAttribute="trailing" secondItem="Vs9-67-bm3" secondAttribute="trailing" constant="30" id="6lI-3i-rUA"/>
+                            <constraint firstItem="Vs9-67-bm3" firstAttribute="top" secondItem="8AC-SA-TmU" secondAttribute="bottom" constant="1" id="9bu-J3-5fg"/>
                             <constraint firstItem="dqe-zv-jmL" firstAttribute="trailing" secondItem="cml-Kf-741" secondAttribute="trailing" constant="30" id="Bee-6H-KTR"/>
                             <constraint firstItem="dqe-zv-jmL" firstAttribute="trailing" secondItem="bVI-E3-SvY" secondAttribute="trailing" constant="30" id="DBq-LF-2w1"/>
-                            <constraint firstItem="dqe-zv-jmL" firstAttribute="trailing" secondItem="3gx-7C-pf2" secondAttribute="trailing" constant="30" id="DFe-vy-cYn"/>
                             <constraint firstItem="cml-Kf-741" firstAttribute="top" secondItem="bVI-E3-SvY" secondAttribute="bottom" constant="45" id="Haw-sP-z88"/>
                             <constraint firstItem="cml-Kf-741" firstAttribute="leading" secondItem="LPl-fD-uOp" secondAttribute="trailing" constant="30" id="Lwt-GM-2y5"/>
-                            <constraint firstItem="3gx-7C-pf2" firstAttribute="top" secondItem="jeV-BX-k9p" secondAttribute="bottom" constant="5" id="Mtb-zH-3fi"/>
                             <constraint firstItem="8uq-Jd-PK5" firstAttribute="left" secondItem="dqe-zv-jmL" secondAttribute="left" constant="30" id="TRk-7B-Kbc"/>
                             <constraint firstItem="jeV-BX-k9p" firstAttribute="top" secondItem="LPl-fD-uOp" secondAttribute="bottom" constant="49" id="W2r-cf-LTv"/>
                             <constraint firstItem="LPl-fD-uOp" firstAttribute="top" secondItem="bVI-E3-SvY" secondAttribute="bottom" constant="50" id="WJn-sO-b3d"/>
+                            <constraint firstItem="Vs9-67-bm3" firstAttribute="leading" secondItem="dqe-zv-jmL" secondAttribute="leading" constant="30" id="Y2X-2U-VcK"/>
                             <constraint firstItem="bVI-E3-SvY" firstAttribute="leading" secondItem="dqe-zv-jmL" secondAttribute="leading" constant="30" id="ZDT-Xc-mpc"/>
-                            <constraint firstItem="3gx-7C-pf2" firstAttribute="top" secondItem="LPl-fD-uOp" secondAttribute="bottom" constant="70" id="ZNZ-fp-VBh"/>
-                            <constraint firstItem="ig1-YC-io0" firstAttribute="top" secondItem="3gx-7C-pf2" secondAttribute="bottom" id="aQ3-dW-z2x"/>
-                            <constraint firstItem="3gx-7C-pf2" firstAttribute="leading" secondItem="dqe-zv-jmL" secondAttribute="leading" constant="30" id="acN-WB-DoT"/>
                             <constraint firstItem="LPl-fD-uOp" firstAttribute="leading" secondItem="dqe-zv-jmL" secondAttribute="leading" constant="30" id="bJe-qq-BFO"/>
-                            <constraint firstItem="dqe-zv-jmL" firstAttribute="trailing" secondItem="ig1-YC-io0" secondAttribute="trailing" constant="30" id="cwE-cc-YWP"/>
                             <constraint firstItem="fDu-Ot-qZk" firstAttribute="bottom" secondItem="dqe-zv-jmL" secondAttribute="bottom" id="drh-WD-Fx5"/>
                             <constraint firstItem="fDu-Ot-qZk" firstAttribute="trailing" secondItem="dqe-zv-jmL" secondAttribute="trailing" id="fdI-AA-9tH"/>
                             <constraint firstItem="fDu-Ot-qZk" firstAttribute="top" secondItem="8uq-Jd-PK5" secondAttribute="bottom" constant="5" id="gAe-sv-Kjt"/>
-                            <constraint firstItem="8uq-Jd-PK5" firstAttribute="top" secondItem="ig1-YC-io0" secondAttribute="bottom" constant="41" id="q7H-9z-bXJ"/>
+                            <constraint firstItem="8AC-SA-TmU" firstAttribute="leading" secondItem="dqe-zv-jmL" secondAttribute="leading" constant="30" id="iVn-XP-Z5O"/>
                             <constraint firstItem="jeV-BX-k9p" firstAttribute="left" secondItem="dqe-zv-jmL" secondAttribute="left" constant="30" id="rBh-ui-Jgw"/>
+                            <constraint firstItem="dqe-zv-jmL" firstAttribute="trailing" secondItem="8AC-SA-TmU" secondAttribute="trailing" constant="30" id="x8b-uT-RO3"/>
                             <constraint firstItem="bVI-E3-SvY" firstAttribute="top" secondItem="dqe-zv-jmL" secondAttribute="top" constant="50" id="zx2-i8-XMM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Giz-KJ-5pc"/>
                     <connections>
-                        <outlet property="daySelect1" destination="3gx-7C-pf2" id="iQv-vg-RW3"/>
-                        <outlet property="daySelect2" destination="ig1-YC-io0" id="By0-Rt-TUE"/>
                         <outlet property="hourPicker" destination="lc2-Qg-mel" id="15m-zG-ZVL"/>
                         <outlet property="notifyActive" destination="cml-Kf-741" id="VFn-Lf-MvL"/>
                         <outlet property="resumeText" destination="LPl-fD-uOp" id="i88-wm-jt6"/>
+                        <outlet property="view1" destination="8AC-SA-TmU" id="Qu1-7X-uay"/>
+                        <outlet property="view2" destination="Vs9-67-bm3" id="9cI-Sp-csB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7mB-l1-egY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -701,7 +683,7 @@
         <image name="photo" catalog="system" width="128" height="93"/>
         <image name="square.and.arrow.down.on.square.fill" catalog="system" width="122" height="128"/>
         <namedColor name="Color">
-            <color red="0.72156862745098038" green="0.4823529411764706" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.72200000286102295" green="0.48199999332427979" blue="0.57300001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Color 2">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
